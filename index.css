@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-muted: #9ca3af;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: white;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #171e27 0%, #141c2d 100%);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-bottom: 0.5px solid #0c111c;
+  height: 50px;
+  align-items: center;
+  gap: 7px;
+  background-color: #171e27;
+}
+
+.header-image {
+  height: auto;
+  object-fit: contain;
+  width: 40px;
+  color: #388bf0;
+  margin-right: 0.1rem;
+}
+
+.headerNav {
+  margin-left: 3rem;
+  ul {
+    color: #9ca3af;
+    display: flex;
+    gap: 20px;
+    list-style: none;
+
+    a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+  }
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+}
+
+.btn-upload-resume {
+  background-color: #2968b4;
+  padding: 10px;
+}
+
+.header-image-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+/*ELEMENTS*/
+.customInput {
+  height: auto;
+  object-fit: contain;
+}
+
+/*DROPDOWN*/
+select {
+  background: #1e293b;
+  color: #e5e7eb;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  appearance: none; /* oculta la flecha nativa */
+  background: #1e293b url("caretDown.png") no-repeat right 12px center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+select::before {
+  background: #1e293b url("caretDown.png") no-repeat right 12px center;
+}
+
+select:focus {
+  outline: 2px solid #3b82f6; /* azul tipo focus */
+  outline-offset: 2px;
+}
