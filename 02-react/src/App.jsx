@@ -1,7 +1,14 @@
 import { Card, Filter } from "./components";
 import JOBS from "../public/cardData.json";
+import { useState } from "react";
 
 export default function App() {
+  const [filterValues, setFilterValues] = useState({
+    technology: "",
+    location: "",
+    experienceLevel: "",
+  });
+
   return (
     <>
       <header>
@@ -60,9 +67,11 @@ export default function App() {
             </div>
 
             <div className="search-filters">
-              {["technology", "location", "experience-level"].map((nameValue) => (
-                <Filter name={nameValue} />
-              ))}
+              {["technology", "location", "experienceLevel"].map(
+                (nameValue) => (
+                  <Filter name={nameValue} setFilterValues={setFilterValues} />
+                )
+              )}
             </div>
           </form>
 
@@ -73,7 +82,7 @@ export default function App() {
           <h2>Resultados de búsqueda</h2>
           <div className="jobs-listings">
             {JOBS?.map((job) => (
-              <Card key={job.id} job={job} />
+              <Card job={job} filterValues={filterValues} />
             ))}
           </div>
 

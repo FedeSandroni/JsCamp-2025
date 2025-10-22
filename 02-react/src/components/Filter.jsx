@@ -1,37 +1,42 @@
 import data from "../../public/filtersData.json";
 
-export function Filter({ name }) {
-  const card = data.find((c) => c.name === name);
-  if (!card) return null;
+export function Filter({ name, setFilterValues }) {
+  const filter = data?.find?.((c) => c?.name === name);
+  if (!filter) return null;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target || {};
+    setFilterValues?.((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
-    <select name={card.name} id={`filter-${card.name}`}>
-      <option value="">{card.label}</option>
+    <select name={filter?.name} id={`filter-${filter?.name}`} onChange={handleChange}>
+      <option value="">{filter?.label}</option>
 
-      {card?.groups &&
-        card?.groups?.map((group) => (
-          <optgroup key={group.label} label={group.label}>
-            {group.options.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </optgroup>
-        ))}
+      {filter?.groups?.map?.((group) => (
+        <optgroup key={group?.label} label={group?.label}>
+          {group?.options?.map?.((opt) => (
+            <option key={opt?.value} value={opt?.value}>
+              {opt?.label}
+            </option>
+          ))}
+        </optgroup>
+      ))}
 
-      {card?.others &&
-        card.others.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
+      {filter?.others?.map?.((opt) => (
+        <option key={opt?.value} value={opt?.value}>
+          {opt?.label}
+        </option>
+      ))}
 
-      {card?.options &&
-        card.options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
+      {filter?.options?.map?.((opt) => (
+        <option key={opt?.value} value={opt?.value}>
+          {opt?.label}
+        </option>
+      ))}
     </select>
   );
 }

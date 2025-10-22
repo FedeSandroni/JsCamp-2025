@@ -34,7 +34,7 @@
     ]
   },
   {
-    "name": "experience-level",
+    "name": "experienceLevel",
     "label": "Nivel de experiencia",
     "options": [
       { "value": "junior", "label": "Junior" },
