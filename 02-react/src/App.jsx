@@ -1,6 +1,7 @@
-import { Filter } from "./components";
+import { Card, Filter } from "./components";
+import JOBS from "../public/cardData.json";
 
-function App() {
+export default function App() {
   return (
     <>
       <header>
@@ -59,9 +60,9 @@ function App() {
             </div>
 
             <div className="search-filters">
-              <Filter name="technology" />
-              <Filter name="location" />
-              <Filter name="experience-level" />
+              {["technology", "location", "experience-level"].map((nameValue) => (
+                <Filter name={nameValue} />
+              ))}
             </div>
           </form>
 
@@ -70,8 +71,11 @@ function App() {
 
         <section>
           <h2>Resultados de búsqueda</h2>
-
-          <div className="jobs-listings"></div>
+          <div className="jobs-listings">
+            {JOBS?.map((job) => (
+              <Card key={job.id} job={job} />
+            ))}
+          </div>
 
           <nav className="pagination">
             <a href="#">
@@ -122,5 +126,3 @@ function App() {
     </>
   );
 }
-
-export default App;
