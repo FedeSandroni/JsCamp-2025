@@ -1,41 +1,55 @@
 import { useState } from "react";
 
 export function Card({ job, filterValues }) {
-  const [isApplied, setIsApplied] = useState();
-
+  const [isApplied, setIsApplied] = useState(false);
   if (!job) return null;
 
-  const appliedHandler = () => {
-    setIsApplied(!isApplied);
+  const normalize = (value) =>
+    Array.isArray(value) ? value : value ? [value] : [];
+
+  const SELECTED = {
+    technology: filterValues?.technology?.toLowerCase?.() || "",
+    location: filterValues?.location?.toLowerCase?.() || "",
+    level: filterValues?.experienceLevel?.toLowerCase?.() || "",
   };
 
-  const {
-    data: { technology },
-  } = job;
+  const FILTERS_DATA = {
+    technology: normalize(job.FILTERS_DATA?.technology),
+    location: job.FILTERS_DATA?.modalidad?.toLowerCase?.() || "",
+    level: job.FILTERS_DATA?.nivel?.toLowerCase?.() || "",
+  };
 
-  const isTechnology = Array.isArray(technology)
-    ? technology?.includes(filterValues?.technology)
-    : technology === filterValues?.technology;
+  const matchesTechnology =
+    !SELECTED.technology ||
+    FILTERS_DATA.technology.some(
+      (t) => t?.toLowerCase?.() === SELECTED.technology
+    );
 
-  // const RESULTS_PER_PAGE = 3
+  const matchesLocation =
+    !SELECTED.location || FILTERS_DATA.location === SELECTED.location;
+
+  const matchesLevel = !SELECTED.level || FILTERS_DATA.level === SELECTED.level;
+
+  const matchesAll = matchesTechnology && matchesLocation && matchesLevel;
+
+  if (!matchesAll) return null;
 
   return (
-    (isTechnology || filterValues.technology === "") && (
-      <article className="job-listing-card" key={job.id}>
-        <div>
-          <h3>{job.titulo}</h3>
-          <small>
-            {job.empresa} | {job.ubicacion}
-          </small>
-          <p>{job.descripcion}</p>
-        </div>
-        <button
-          className={`button-apply-job ${isApplied ? "is-applied" : ""}`}
-          onClick={appliedHandler}
-        >
-          {isApplied ? "¡Aplicado!" : "Aplicar"}
-        </button>
-      </article>
-    )
+    <article className="job-listing-card">
+      <div>
+        <h3>{job.titulo}</h3>
+        <small>
+          {job.empresa} | {job.ubicacion}
+        </small>
+        <p>{job.descripcion}</p>
+      </div>
+
+      <button
+        className={`button-apply-job ${isApplied ? "is-applied" : ""}`}
+        onClick={() => setIsApplied((p) => !p)}
+      >
+        {isApplied ? "¡Aplicado!" : "Aplicar"}
+      </button>
+    </article>
   );
 }
