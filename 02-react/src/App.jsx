@@ -1,13 +1,31 @@
-import { Card, Filter } from "./components";
-import JOBS from "../public/cardData.json";
 import { useState } from "react";
+import { Card, Filter } from "./components";
+import { Pagination } from "./components/Pagination";
+import { PAGINATION_SIZE } from "./mocks/pagination";
+import JOBS from "../public/cardData.json";
 
 export default function App() {
+  const TOTAL_PAGES = Math.ceil(JOBS.length / PAGINATION_SIZE);
   const [filterValues, setFilterValues] = useState({
     technology: "",
     location: "",
     experienceLevel: "",
+    search: "",
   });
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: TOTAL_PAGES,
+  });
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setFilterValues((prev) => ({ ...prev, search: value }));
+
+    setPagination({
+      currentPage: 1,
+      totalPages: TOTAL_PAGES,
+    });
+  };
 
   return (
     <>
@@ -38,6 +56,7 @@ export default function App() {
           <h1>Encuentra tu próximo trabajo</h1>
           <p>Explora miles de oportunidades en el sector tecnológico.</p>
 
+          {/* This form could be removed because i use de input like filter with the view not to refresh the DATA from API */}
           <form id="empleos-search-form" role="search">
             <div className="search-bar">
               <svg
@@ -63,6 +82,8 @@ export default function App() {
                 required
                 type="text"
                 placeholder="Buscar trabajos, empresas o habilidades"
+                value={filterValues.search}
+                onChange={handleSearch}
               />
             </div>
 
@@ -85,56 +106,31 @@ export default function App() {
         <section>
           <h2>Resultados de búsqueda</h2>
           <div className="jobs-listings">
-            {JOBS?.map((job) => (
-              <Card job={job} filterValues={filterValues} key={job?.id} />
-            ))}
+            {JOBS.filter((job) =>
+              job?.titulo
+                ?.toLowerCase?.()
+                .includes(filterValues.search.toLowerCase())
+            )
+              .slice(
+                (pagination.currentPage - 1) * PAGINATION_SIZE,
+                pagination.currentPage * PAGINATION_SIZE
+              )
+              .map((job) => (
+                <Card job={job} filterValues={filterValues} key={job?.id} />
+              ))}
           </div>
-
-          <nav className="pagination">
-            <a href="#">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M15 6l-6 6l6 6" />
-              </svg>
-            </a>
-            <a className="is-active" href="#">
-              1
-            </a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M9 6l6 6l-6 6" />
-              </svg>
-            </a>
-          </nav>
+          <Pagination pagination={pagination} setPagination={setPagination} />
         </section>
       </main>
 
       <footer>
-        <small>&copy; 2025 DevJobs. Todos los derechos reservados.</small>
+        <small>
+          &copy; 2025 DevJobs. Todos los derechos reservados{" "}
+          <a href="jscamp.dev" target="_blank" rel="noopener noreferrer">
+            https://www.jscamp.dev
+          </a>
+          .
+        </small>
       </footer>
     </>
   );
