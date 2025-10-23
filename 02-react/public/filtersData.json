@@ -1,0 +1,46 @@
+[
+  {
+    "name": "technology",
+    "label": "Tecnología",
+    "groups": [
+      {
+        "label": "Tecnologías populares",
+        "options": [
+          { "value": "javascript", "label": "JavaScript" },
+          { "value": "python", "label": "Python" },
+          { "value": "react", "label": "React" },
+          { "value": "nodejs", "label": "Node.js" }
+        ]
+      }
+    ],
+    "others": [
+      { "value": "java", "label": "Java" },
+      { "value": "csharp", "label": "C#" },
+      { "value": "c", "label": "C" },
+      { "value": "c++", "label": "C++" },
+      { "value": "ruby", "label": "Ruby" },
+      { "value": "php", "label": "PHP" }
+    ]
+  },
+  {
+    "name": "location",
+    "label": "Ubicación",
+    "options": [
+      { "value": "remoto", "label": "Remoto" },
+      { "value": "cdmx", "label": "Ciudad de México" },
+      { "value": "guadalajara", "label": "Guadalajara" },
+      { "value": "monterrey", "label": "Monterrey" },
+      { "value": "barcelona", "label": "Barcelona" }
+    ]
+  },
+  {
+    "name": "experienceLevel",
+    "label": "Nivel de experiencia",
+    "options": [
+      { "value": "junior", "label": "Junior" },
+      { "value": "mid", "label": "Mid-level" },
+      { "value": "senior", "label": "Senior" },
+      { "value": "lead", "label": "Lead" }
+    ]
+  }
+]
