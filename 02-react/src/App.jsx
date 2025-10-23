@@ -69,7 +69,11 @@ export default function App() {
             <div className="search-filters">
               {["technology", "location", "experienceLevel"].map(
                 (nameValue) => (
-                  <Filter name={nameValue} setFilterValues={setFilterValues} />
+                  <Filter
+                    name={nameValue}
+                    setFilterValues={setFilterValues}
+                    key={nameValue}
+                  />
                 )
               )}
             </div>
@@ -82,7 +86,7 @@ export default function App() {
           <h2>Resultados de búsqueda</h2>
           <div className="jobs-listings">
             {JOBS?.map((job) => (
-              <Card job={job} filterValues={filterValues} />
+              <Card job={job} filterValues={filterValues} key={job?.id} />
             ))}
           </div>
 
